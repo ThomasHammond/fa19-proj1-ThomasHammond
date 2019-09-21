@@ -84,5 +84,6 @@ void printUsage(char* argv[])
 
 	//STEP 4: Free all allocated memory
 	free(ar);
+	freeComplexNumber(center);
 	return 0;
 }

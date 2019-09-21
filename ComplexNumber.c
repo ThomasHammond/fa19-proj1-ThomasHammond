@@ -18,46 +18,71 @@ typedef struct ComplexNumber
 
 //Returns a pointer to a new Complex Number with the given real and imaginary components
 ComplexNumber* newComplexNumber(double real_component, double imaginary_component)
-{
-    //YOUR CODE HERE
-	return NULL;
+{	// Initialize
+	ComplexNumber *complexNumber;
+	// Allocate space
+	complexNumber = malloc(sizeof(ComplexNumber));
+	// Assign real and imaginary components
+	complexNumber->real = real_component;
+	complexNumber->imaginary = imaginary_component;
+	// Return new complex number
+	return complexNumber;
 }
 
 //Returns a pointer to a new Complex Number equal to a*b
 ComplexNumber* ComplexProduct(ComplexNumber* a, ComplexNumber* b)
 {
     //YOUR CODE HERE
-	return NULL;
+	double a_real = Re(a);
+	double a_imaginary = Im(a);
+
+	double b_real = Re(b);
+	double b_imaginary = Im(b);
+
+	double realProduct = (a_real * b_real) - (a_imaginary * b_imaginary);
+	double imaginaryProduct = (a_real * b_imaginary) + (b_real * a_imaginary);
+
+	return newComplexNumber(realProduct, imaginaryProduct);
 }
 
 //Returns a pointer to a new Complex Number equal to a+b
 ComplexNumber* ComplexSum(ComplexNumber* a, ComplexNumber* b)
 {
     //YOUR CODE HERE
-	return NULL;
+	double a_real = Re(a);
+	double a_imaginary = Im(a);
+
+	double b_real = Re(b);
+	double b_imaginary = Im(b);
+
+	double realSum = a_real + b_real;
+	double imaginarySum = a_imaginary + b_imaginary;
+	
+	return newComplexNumber(realSum, imaginarySum);
 }
 
 //Returns the absolute value of Complex Number a
 double ComplexAbs(ComplexNumber* a)
 {
     //YOUR CODE HERE
-	return 0;
+	return sqrt(pow(Re(a), 2) + pow(Im(a), 2));
 }
 
 void freeComplexNumber(ComplexNumber* a)
 {
 	//YOUR CODE HERE
+	free(a);
 }
 
 double Re(ComplexNumber* a)
 {
 	//YOUR CODE HERE
-	return 0;
+	return a->real;
 }
 double Im(ComplexNumber* a)
 {
 	//YOUR CODE HERE
-	return 0;
+	return a->imaginary;
 }
 
 
@@ -107,3 +132,10 @@ int test_complex_number()
 	free(c);
 	return 0;
 }
+
+// int main(int argc, char const *argv[])
+// {
+// 	test_complex_number();
+// 	return 0;
+// }
+

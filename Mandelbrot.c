@@ -11,6 +11,7 @@
 #include "Mandelbrot.h"
 #include <sys/types.h>
 
+
 /*
 This function returns the number of iterations before the initial point >= the threshold.
 If the threshold is not exceeded after maxiters, the function returns 0.
@@ -18,7 +19,23 @@ If the threshold is not exceeded after maxiters, the function returns 0.
 u_int64_t MandelbrotIterations(u_int64_t maxiters, ComplexNumber * point, double threshold)
 {
     //YOUR CODE HERE
-  return 0;
+    u_int64_t iterations = 0;
+
+    ComplexNumber *Z = newComplexNumber(0.0, 0.0);
+    while(ComplexAbs(Z) <= threshold) {
+      if (iterations >= maxiters) {
+        freeComplexNumber(Z);
+        return maxiters;
+      }
+      else {
+        Z = ComplexSum(ComplexProduct(Z, Z), point);
+        iterations++;
+      }
+    }
+    freeComplexNumber(Z);
+    return iterations;
+
+
 }
 
 /*
@@ -28,6 +45,21 @@ Scale is the the distance between center and the top pixel in one dimension.
 */
 void Mandelbrot(double threshold, u_int64_t max_iterations, ComplexNumber* center, double scale, u_int64_t resolution, u_int64_t * output){
     //YOUR CODE HERE
+    double step = scale / resolution;
+    
+    double imC = Im(center);
+    double reC = Re(center);
+
+    int index = 0;
+
+    for (double i = imC + scale; i >= imC - scale; i -= step) {
+      for (double r = reC - scale; r <= reC + scale; r += step) {
+        ComplexNumber *C = newComplexNumber(r, i);
+        output[index] = MandelbrotIterations(max_iterations, C, threshold);
+        freeComplexNumber(C);
+        index++;
+      }
+    }
 }
 
 

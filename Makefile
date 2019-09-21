@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -lm -g
 
-Mandelbrot: ComplexNumber.o Mandelbrot.o MandelFrame.o
+Mandelbrot: ComplexNumber.o Mandelbrot.o MandelFrame.o 
 	$(CC) -o MandelFrame ComplexNumber.o Mandelbrot.o MandelFrame.o -lm -g
 
 MandelMovie: ComplexNumber.o Mandelbrot.o MandelMovie.o ColorMapInput.o
