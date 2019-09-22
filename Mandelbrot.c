@@ -22,13 +22,12 @@ u_int64_t MandelbrotIterations(u_int64_t maxiters, ComplexNumber * point, double
     u_int64_t iterations = 0; 
     ComplexNumber *Z = newComplexNumber(0.0, 0.0);
     while(ComplexAbs(Z) < threshold) {
-      if (iterations > maxiters) {
+      if (iterations >= maxiters) {
         freeComplexNumber(Z);
         return 0;
       }
       else {
-        Z = ComplexProduct(Z, Z);
-        Z = ComplexSum(Z, point);
+        Z = ComplexSum(ComplexProduct(Z, Z), point);
         iterations++;
       }
     }
@@ -45,15 +44,16 @@ Scale is the the distance between center and the top pixel in one dimension.
 */
 void Mandelbrot(double threshold, u_int64_t max_iterations, ComplexNumber* center, double scale, u_int64_t resolution, u_int64_t * output){
     //YOUR CODE HERE
-    double step = (double)scale/resolution;
+    // double step = (double)scale/resolution;
     
-    double imC = Im(center);
-    double reC = Re(center);
+    // double imC = Im(center);
+    // double reC = Re(center);
+    
 
     int index = 0;
 
-    for (double i = imC + scale; i >= imC - scale; i -= step) {
-      for (double r = reC - scale; r <= reC + scale; r += step) {
+    for (double i = Im(center) + scale; i >= Im(center) - scale; i -= scale/(double)resolution) {
+      for (double r = Re(center) - scale; r <= Re(center) + scale; r += scale/(double)resolution) {
         ComplexNumber *C = newComplexNumber(r, i);
         output[index] = MandelbrotIterations(max_iterations, C, threshold);
         freeComplexNumber(C);

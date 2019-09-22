@@ -124,9 +124,4 @@ int test_complex_number()
 	return 0;
 }
 
-int main(int argc, char const *argv[])
-{
-	test_complex_number();
-	return 0;
-}
 
