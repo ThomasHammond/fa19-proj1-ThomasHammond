@@ -33,44 +33,30 @@ ComplexNumber* newComplexNumber(double real_component, double imaginary_componen
 ComplexNumber* ComplexProduct(ComplexNumber* a, ComplexNumber* b)
 {
     //YOUR CODE HERE
-	double a_real = Re(a);
-	double a_imaginary = Im(a);
 
-	double b_real = Re(b);
-	double b_imaginary = Im(b);
+	// double realProduct = (a->real * b->real) - (a->imaginary * b->imaginary);
+	// double imaginaryProduct = (a->real * b->imaginary) + (b->real * a->imaginary);
 
-	double realProduct = (a_real * b_real) - (a_imaginary * b_imaginary);
-	double imaginaryProduct = (a_real * b_imaginary) + (b_real * a_imaginary);
-
-	return newComplexNumber(realProduct, imaginaryProduct);
+	return newComplexNumber(((a->real * b->real) - (a->imaginary * b->imaginary)), 
+							((a->real * b->imaginary) + (b->real * a->imaginary)));
 }
 
 //Returns a pointer to a new Complex Number equal to a+b
 ComplexNumber* ComplexSum(ComplexNumber* a, ComplexNumber* b)
 {
     //YOUR CODE HERE
-	double a_real = Re(a);
-	double a_imaginary = Im(a);
 
-	double b_real = Re(b);
-	double b_imaginary = Im(b);
-
-	double realSum = a_real + b_real;
-	double imaginarySum = a_imaginary + b_imaginary;
+	// double realSum = a->real + b->real;
+	// double imaginarySum = a->imaginary + b->imaginary;
 	
-	return newComplexNumber(realSum, imaginarySum);
+	return newComplexNumber((a->real + b->real), (a->imaginary + b->imaginary));
 }
 
 //Returns the absolute value of Complex Number a
 double ComplexAbs(ComplexNumber* a)
 {
     //YOUR CODE HERE
-        double realA = Re(a);
-        double imaginaryA = Im(a);
-        double realSquare = realA * realA;
-        double imaginarySquare = imaginaryA * imaginaryA;
-        double squareSum = realSquare + imaginarySquare;
-	return sqrt(squareSum);
+	return sqrt((a->real * a->real) + (a->imaginary * a->imaginary));
 }
 
 void freeComplexNumber(ComplexNumber* a)
@@ -138,9 +124,9 @@ int test_complex_number()
 	return 0;
 }
 
-// int main(int argc, char const *argv[])
-// {
-// 	test_complex_number();
-// 	return 0;
-// }
+int main(int argc, char const *argv[])
+{
+	test_complex_number();
+	return 0;
+}
 
