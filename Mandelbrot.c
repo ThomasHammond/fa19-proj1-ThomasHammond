@@ -19,16 +19,16 @@ If the threshold is not exceeded after maxiters, the function returns 0.
 u_int64_t MandelbrotIterations(u_int64_t maxiters, ComplexNumber * point, double threshold)
 {
     //YOUR CODE HERE
-    u_int64_t iterations = 0;
-
+    u_int64_t iterations = 0; 
     ComplexNumber *Z = newComplexNumber(0.0, 0.0);
-    while(ComplexAbs(Z) <= threshold) {
-      if (iterations >= maxiters) {
+    while(ComplexAbs(Z) < threshold) {
+      if (iterations > maxiters) {
         freeComplexNumber(Z);
         return 0;
       }
       else {
-        Z = ComplexSum(ComplexProduct(Z, Z), point);
+        Z = ComplexProduct(Z, Z);
+        Z = ComplexSum(Z, point);
         iterations++;
       }
     }
@@ -45,8 +45,7 @@ Scale is the the distance between center and the top pixel in one dimension.
 */
 void Mandelbrot(double threshold, u_int64_t max_iterations, ComplexNumber* center, double scale, u_int64_t resolution, u_int64_t * output){
     //YOUR CODE HERE
-    double dRes = (double) resolution;
-    double step = scale / dRes;
+    double step = (double)scale/resolution;
     
     double imC = Im(center);
     double reC = Re(center);
