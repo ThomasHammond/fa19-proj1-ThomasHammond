@@ -53,7 +53,7 @@ void printUsage(char* argv[])
 
 	//STEP 2: Run Mandelbrot on the correct arguments.
 	u_int64_t *ar;
-	ar = (u_int64_t *)malloc(size * size * sizeof(u_int64_t));
+	ar = (u_int64_t *)calloc(1, size * size * sizeof(u_int64_t));
 	if (ar == NULL) {
 		printf("Unable to allocate %lu bytes\n", size * size * sizeof(u_int64_t));
 		return 1;

@@ -21,7 +21,7 @@ ComplexNumber* newComplexNumber(double real_component, double imaginary_componen
 {	// Initialize
 	ComplexNumber *complexNumber;
 	// Allocate space
-	complexNumber = malloc(sizeof(ComplexNumber));
+	complexNumber = calloc(1, sizeof(ComplexNumber));
 	// Assign real and imaginary components
 	complexNumber->real = real_component;
 	complexNumber->imaginary = imaginary_component;
