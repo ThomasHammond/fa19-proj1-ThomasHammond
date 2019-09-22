@@ -65,7 +65,7 @@ ComplexNumber* ComplexSum(ComplexNumber* a, ComplexNumber* b)
 double ComplexAbs(ComplexNumber* a)
 {
     //YOUR CODE HERE
-	return sqrt(pow(Re(a), 2) + pow(Im(a), 2));
+	return sqrt((Re(a) * Re(a)) + (Im(a) * Im(a)));
 }
 
 void freeComplexNumber(ComplexNumber* a)
