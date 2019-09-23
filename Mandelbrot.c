@@ -48,22 +48,64 @@ Scale is the the distance between center and the top pixel in one dimension.
 */
 void Mandelbrot(double threshold, u_int64_t max_iterations, ComplexNumber* center, double scale, u_int64_t resolution, u_int64_t * output){
     //YOUR CODE HERE
-    double step = scale/(double)resolution;
-    double iMax = Im(center) + scale;
-    double iMin = Im(center) - scale;
-    double rMax = Re(center) + scale;
-    double rMin = Re(center) - scale;
+    double step = (double) scale/resolution;
 
-    u_int64_t index = 0;
+    double *reArr;
+    reArr = malloc((2 * resolution + 1) * sizeof(double));
 
-    for (double i = iMax; i >= iMin; i -= step) {
-      for (double r = rMin; r <= rMax; r += step) {
-        ComplexNumber *C = newComplexNumber(r, i);
-        output[index] = MandelbrotIterations(max_iterations, C, threshold);
-        freeComplexNumber(C);
-        index++;
+    double *imArr;
+    imArr = malloc((2 * resolution + 1) * sizeof(double));
+
+    if (reArr == NULL || imArr == NULL) {
+      printf("Memory error.");
+      exit(1);
+    }
+
+    double real = Re(center);
+    double im = Im(center);
+
+    int indexLeft = (int) resolution - 1;
+    int indexRight = (int) resolution + 1;
+
+    reArr[resolution] = real;
+    imArr[resolution] = im;
+
+    for (int i = 1; i <= resolution; i++) {
+      double thisStep = (double) i * step;
+      reArr[indexLeft] = real - thisStep;
+      imArr[indexLeft] = im + thisStep;
+      indexLeft--;
+      reArr[indexRight] = real + thisStep;
+      imArr[indexRight] = im - thisStep;
+      indexRight++;
+    }
+
+    int outputIndex = 0;
+
+    int len = (int) 2 * resolution + 1;
+
+    for (int i = 0; i < len; i++) {
+      for (int r = 0; r < len; r++) {
+        ComplexNumber *c = newComplexNumber(reArr[r], imArr[i]);
+        output[outputIndex] = MandelbrotIterations(max_iterations, c, threshold);
+        freeComplexNumber(c);
+        outputIndex++;
       }
     }
+    free(reArr);
+    free(imArr);
+
+
+    // u_int64_t index = 0;
+
+    // for (double i = iMax; i >= iMin; i -= step) {
+    //   for (double r = rMin; r <= rMax; r += step) {
+    //     ComplexNumber *C = newComplexNumber(r, i);
+    //     output[index] = MandelbrotIterations(max_iterations, C, threshold);
+    //     freeComplexNumber(C);
+    //     index++;
+    //   }
+    // }
 }
 
 
